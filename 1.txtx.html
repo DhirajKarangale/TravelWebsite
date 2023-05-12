@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+     /* Style the form container */
+	 .form-container {
+      width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Style form fields */
+    .form-field {
+      margin-bottom: 20px;
+    }
+
+    .form-field label,
+    .form-field input,
+    .form-field textarea {
+      display: block;
+      width: 100%;
+    }
+
+    .form-field label {
+      font-weight: bold;
+    }
+
+    .form-field input[type="text"],
+    .form-field input[type="email"],
+    .form-field input[type="tel"],
+    .form-field textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    /* Style the submit button */
+    .form-submit {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    /* Style the logs section */
+    .logs-container {
+      width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: Arial, sans-serif;
+    }
+
+    .logs-container pre {
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <form id="contact-form">
+      <div class="form-field">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-field">
+        <label for="number">Number:</label>
+        <input type="tel" id="number" name="number" required>
+      </div>
+
+      <div class="form-field">
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+
+      <input type="submit" value="Submit" class="form-submit">
+    </form>
+  </div>
+
+  <div class="logs-container">
+    <h3>Logs:</h3>
+    <pre id="logs"></pre>
+  </div>
+
+  <script type="module">
+	// Import the functions you need from the SDKs you need
+	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+	import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-analytics.js";
+	// TODO: Add SDKs for Firebase products that you want to use
+	// https://firebase.google.com/docs/web/setup#available-libraries
+  
+	// Your web app's Firebase configuration
+	// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	const firebaseConfig = {
+	  apiKey: "AIzaSyBFrMPOoeETOiOGV3pTqgXlNg1890Qh2Ac",
+	  authDomain: "travel-guide-ab56f.firebaseapp.com",
+	  projectId: "travel-guide-ab56f",
+	  storageBucket: "travel-guide-ab56f.appspot.com",
+	  messagingSenderId: "675838686448",
+	  appId: "1:675838686448:web:e96e6b232871f9820abe35",
+	  measurementId: "G-Y1YDDJM17T"
+	};
+  
+	// Initialize Firebase
+	const app = initializeApp(firebaseConfig);
+	const analytics = getAnalytics(app);
+
+
+
+	function SendMessage()
+	{
+		
+	}
+
+
+
+
+
+
+
+
+
+
+  </script>
+
+  <script>
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      // Get form values
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("email").value;
+      var number = document.getElementById("number").value;
+      var message = document.getElementById("message").value;
+
+	  	firebase.database().ref("User").set
+		({
+			name : name,
+			email : email,
+			number : number,
+			msg : message,
+		});
+
+      // Create log entry
+      var logEntry = "Name: " + name + "\nEmail: " + email + "\nNumber: " + number + "\nMessage: " + message + "\n\n";
+
+      // Append log entry to logs container
+      document.getElementById("logs").textContent += logEntry;
+
+      // Reset form fields
+      document.getElementById("contact-form").reset();
+    });
+  </script>
+</body>
+</html>
