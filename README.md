@@ -1,2 +1,2 @@
 # TravelWebsite
-TE3 Web Project
+Frontend Web project
